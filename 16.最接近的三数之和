@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+	vector<int>::size_type size = nums.size();
+	int distance = 10000, sum = 0;
+	sort(nums.begin(), nums.end());
+	for (vector<int>::size_type i = 0; i != size; ++i)
+	{
+		if (i > 0 && nums[i] == nums[i - 1]) continue;
+		vector<int>::size_type l = i + 1, r = size - 1;
+		while (l < r)
+		{
+			if (nums[i] + nums[l] + nums[r] < target)
+			{
+				if (target - nums[i] - nums[l] - nums[r] <= distance)
+				{
+					distance = target - nums[i] - nums[l] - nums[r];
+					sum = nums[i] + nums[l] + nums[r];
+					l++;
+				}
+				else l++;
+				
+			}
+			else if (nums[i] + nums[l] + nums[r] > target)
+			{
+				if (nums[i] + nums[l] + nums[r] - target <= distance)
+				{
+					distance = nums[i] + nums[l] + nums[r] - target;
+					sum = nums[i] + nums[l] + nums[r];
+					r--;
+				}
+				else r--;
+		
+			}
+			else return target;
+		}
+	}
+	return sum;
+}
+};
