@@ -1,26 +1,33 @@
-map<char, string> mp = { {'2',"abc"},{'3',"def"},{'4',"ghi"},{'5',"jkl"}, 
-    {'6',"mno"},{'7',"pqrs"},{'8',"tuv"},{'9',"wxyz"} };
-vector<string> res;
-string cur;
-vector<string> letterCombinations(string digits) {
-    if (!digits.size())
-        return res;
-    DFS(digits);
-    return res;
-}
-void DFS(string digit)
+class Solution
 {
-    if (!digit.size())
-        res.push_back(cur);
-    else
-    {
-        char num = digit[0];
-        string letter = mp[num];
-        for (int i = 0; i < letter.size(); ++i)
-        {
-            cur.push_back(letter[i]);
-            DFS(digit.substr(1));
-            cur.pop_back();
-        }
-    }
-}
+public:
+	vector<string> letterCombinations(string digits)
+	{
+		if (!digits.size()) return result;
+		else
+		{
+			DFS(digits);
+			return result;
+		}
+	}
+	void DFS(string digits)
+	{
+		if (!digits.size()) result.push_back(current);
+		else
+		{
+			char digit_0 = digits[0];
+			string letter = mymap[digit_0];
+			for (string::size_type i = 0; i != letter.size(); ++i)
+			{
+				current.push_back(letter[i]);
+				DFS(digits.substr(1));
+				current.pop_back();
+			}
+		}
+	}
+private:
+	map<char, string> mymap{ {'2', "abc"}, {'3',"def"}, {'4', "ghi"}, {'5', "jkl"},{'6', "mno"},
+		{'7', "pqrs"}, {'8', "tuv"}, {'9', "wxyz"} };
+	vector<string> result;
+	string current;
+};
