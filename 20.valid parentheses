@@ -1,14 +1,32 @@
 class Solution {
 public:
     bool isValid(string s) {
-    stack<char> Stack ;
-    for(char c:s){
-    if(c=='(') Stack.push(')');
-    else if(c=='{') Stack.push('}');
-    else if(c=='[') Stack.push(']');
-    else if(Stack.empty()||c!=Stack.top())  return false;
-    else Stack.pop();
-    }
-    return Stack.empty();
+        string::size_type lenghth = s.size();
+        string string1(" ");
+        string::size_type i = 0, j = 0;
+        for (i = 0; i < lenghth; ++i)
+        {
+            if (s[i] == '(' || s[i] == '[' || s[i] == '{')
+            {
+                ++j;
+                string1 = string1 + s[i];
+            }
+            else if (s[i] == ')' && string1[j] == '(')
+            { 
+                string1.pop_back();
+                j--; }
+            else if (s[i] == '}' && string1[j] == '{') {
+                string1.pop_back();
+                j--;
+            }
+            else if (s[i] == ']' && string1[j] == '[') {
+                string1.pop_back();
+                j--;
+            }
+            else return false;
+            //cout << j << endl;
+        }
+        if (j != 0) return false;
+        return true;
     }
 };
