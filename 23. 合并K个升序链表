@@ -1,0 +1,22 @@
+class Solution {
+public:
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        if(lists.size() < 1)return NULL;
+        vector<ListNode*> vec;
+        for(int i = 0; i < lists.size(); ++i) {
+            ListNode* p = lists[i];
+            while(p) {
+                vec.push_back(p);
+                p = p->next;
+            }
+        }
+        if(vec.size() < 1)return NULL;
+        sort(vec.begin(), vec.end(), [](ListNode* p1, ListNode* p2) {return p1->val < p2->val;});
+        for(int i = 0; i < vec.size() - 1; ++i) {
+            vec[i]->next = vec[i + 1];
+        }
+        vec.back()->next = NULL;
+        
+        return vec[0];
+    }
+};
