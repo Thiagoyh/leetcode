@@ -1,0 +1,31 @@
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+          ListNode* first = new ListNode(0);
+          first->next = head;
+          ListNode* cur = first, *pre, *tail = NULL, *t;
+          while(cur->next)
+          {
+              pre = cur->next;
+              for(int i = 0; i < k; ++i)
+              {
+                  if(!pre) return first->next;
+                  pre = pre->next;
+              }
+              pre = cur->next;
+              for(int i = 0; i < k; ++i)
+              {
+                  t = pre->next;
+                  pre->next = tail;
+                  tail = pre;
+                  pre = t;
+              }
+              t = cur->next;     // 保存翻转前的第一个节点，也就是翻转后的尾节点
+                    t->next = pre;     // 新的尾节点 和 后一段的头节点 连接 
+                    cur->next = tail;  // 该段新的头结点
+
+                    cur = t;           // 翻转后的尾节点是下一段的头结点
+          }
+          return first->next;
+    }
+};
