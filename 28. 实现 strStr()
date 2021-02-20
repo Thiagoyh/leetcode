@@ -1,0 +1,13 @@
+class Solution {
+public:
+	int strStr(string haystack, string needle) {
+		int size_needle = needle.size(), haystack_size = haystack.size();
+		if (haystack == needle) return 0;
+		if (size_needle > haystack_size) return -1;
+		for (string::size_type i = 0; i != haystack_size - size_needle + 1; ++i)
+		{
+			if (haystack.substr(i, size_needle) == needle) return i;
+		}
+		return -1;
+	}
+};
